@@ -32,29 +32,21 @@ usersRouter.get("/:id", function (req, res) {
 });
 
 //CREATE USER
-// assigning the variable body to request the body of our new user(body meaning the data)
-// user.push(body) = this adds the data to our users array
 
-// usersRouter.post("/", function (req, res) {
-//   const body = req.body;
-//   users.push(body);
-//   res.json({ success: true, payload: users });
-// });
 
 usersRouter.post('/', function (req, res){
   const body = req.body;
   users.push(body);
-  // const updatedUsers = users;
+  const updatedUsers = users;
 console.log(body);
   const responseObject = {
     success: true,
-    payload: users
+    payload: updatedUsers
 };
 res.json(responseObject);
-// console.log(users);
+console.log(users);
 });
 
-export default usersRouter;
 
 // UPDATE USER BY ID
 
@@ -77,6 +69,7 @@ usersRouter.put('/change/:id', function (req, res){
   console.log(users);
   });
 
+
   // DELETE USER BY ID 
 
 
@@ -96,3 +89,6 @@ usersRouter.put('/change/:id', function (req, res){
     res.json(responseObject);
     console.log(users);
     });
+
+
+    export default usersRouter;
