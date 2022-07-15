@@ -55,3 +55,44 @@ res.json(responseObject);
 });
 
 export default usersRouter;
+
+// UPDATE USER BY ID
+
+usersRouter.put('/change/:id', function (req, res){
+  
+  const body = req.body;
+  
+    let id = req.params.id-1; //-1change URL parameters into array index (index starts at 0 not 1)
+    console.log(id);
+    users[id].first_name = body.first_name;
+    users[id].last_name= body.last_name;
+    users[id].email = body.email;
+    users[id].catchphrase = body.catchphrase;
+    console.log(body)
+    const responseObject = {
+      success: true,
+      payload: users[id],
+    };
+  res.json(responseObject);
+  console.log(users);
+  });
+
+  // DELETE USER BY ID 
+
+
+  usersRouter.delete('/delete/:id', function (req, res){
+  
+    const body = req.body;
+    
+      let id = req.params.id-1; //-1change URL parameters into array index (index starts at 0 not 1)
+      console.log(id);
+      let deletedUser = users[id];
+      users.splice(id, 1);
+      console.log(body);
+      const responseObject = {
+        success: true,
+        payload: deletedUser,
+      };
+    res.json(responseObject);
+    console.log(users);
+    });
