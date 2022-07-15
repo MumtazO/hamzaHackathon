@@ -8,6 +8,8 @@ const Port = 3000;
 
 app.use("/users", usersRouter);
 
+app.use("/change/:id", usersRouter);
+
 
 app.listen(Port, () => {
     console.log(`Example app listening on port ${Port}`)
