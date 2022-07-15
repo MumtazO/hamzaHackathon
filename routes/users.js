@@ -33,62 +33,66 @@ usersRouter.get("/:id", function (req, res) {
 
 //CREATE USER
 
-
-usersRouter.post('/', function (req, res){
+usersRouter.post("/", function (req, res) {
   const body = req.body;
   users.push(body);
   const updatedUsers = users;
-console.log(body);
+  console.log(body);
   const responseObject = {
     success: true,
-    payload: updatedUsers
-};
-res.json(responseObject);
-console.log(users);
+    payload: updatedUsers,
+  };
+  res.json(responseObject);
+  console.log(users);
 });
-
 
 // UPDATE USER BY ID
 
-usersRouter.put('/change/:id', function (req, res){
-  
+usersRouter.put("/change/:id", function (req, res) {
   const body = req.body;
-  
-    let id = req.params.id-1; //-1change URL parameters into array index (index starts at 0 not 1)
-    console.log(id);
-    users[id].first_name = body.first_name;
-    users[id].last_name= body.last_name;
-    users[id].email = body.email;
-    users[id].catchphrase = body.catchphrase;
-    console.log(body)
-    const responseObject = {
-      success: true,
-      payload: users[id],
-    };
-  res.json(responseObject);
-  console.log(users);
-  });
 
+  let id = req.params.id;
+  console.log(id);
+// Loop through array and assign id to id from array
+// update body
+  for (let i = 0; i < users.length; i++) {
+    if (Number(id) === users[i].id) {
+      users[i].first_name = body.first_name;
+      users[i].last_name = body.last_name;
+      users[i].email = body.email;
+      users[i].catchphrase = body.catchphrase;
+      const responseObject = {
+        success: true,
+        payload: users[i],
+      };
+      res.json(responseObject);
 
-  // DELETE USER BY ID 
+      return;
+    }
+  }
+});
 
+// DELETE USER BY ID
 
-  usersRouter.delete('/delete/:id', function (req, res){
-  
-    const body = req.body;
-    
-      let id = req.params.id-1; //-1change URL parameters into array index (index starts at 0 not 1)
-      console.log(id);
-      let deletedUser = users[id];
-      users.splice(id, 1);
-      console.log(body);
+usersRouter.delete("/delete/:id", function (req, res) {
+  const body = req.body;
+
+  let id = req.params.id;
+  console.log(id);
+//Loop throug array and assign id to id from array
+  for (let i = 0; i < users.length; i++) {
+    if (Number(id) === users[i].id) {
+      let deletedUser = users[i];
+      //delete  selected id
+      users.splice(i, 1);
       const responseObject = {
         success: true,
         payload: deletedUser,
       };
-    res.json(responseObject);
-    console.log(users);
-    });
+      res.json(responseObject);
+      console.log(users);
+    }
+  }
+});
 
-
-    export default usersRouter;
+export default usersRouter;
